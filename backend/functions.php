@@ -163,12 +163,22 @@ function eweb_shortcode($atts) {
     $css                        = get_option( 'css_box' );
 
     $return = '
-        <style>
+        <style type="text/css">
             '.$css.'
+            #eweb-iframe .container .header_title{color:red;}
         </style>
         <div class="container">
-            <iframe src="'.$iframe_url.'" height="'.$height.'" width="'.$width.'" frameborder="0"></iframe>
+            <iframe id="eweb-iframe" src="'.$iframe_url.'" height="'.$height.'" width="'.$width.'" frameborder="0"></iframe>
         </div>
+        <script>
+        window.onload = function() {
+            let link = document.createElement("link");
+            link.href = "style.css";      /**** your CSS file ****/ 
+            link.rel = "stylesheet"; 
+            link.type = "text/css"; 
+            frames[0].document.head.appendChild(link); /**** 0 is an index of your iframe ****/ 
+          }
+        </script>
     ';
     
     
